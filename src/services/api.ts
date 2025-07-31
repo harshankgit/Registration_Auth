@@ -46,10 +46,11 @@ export interface UserListItem {
 }
 
 // Helper function to create FormData
-const createFormData = (data: Record<string, any>): FormData => {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const createFormData = (data: any): FormData => {
   const formData = new FormData();
   Object.keys(data).forEach(key => {
-    formData.append(key, data[key]);
+    formData.append(key, String(data[key]));
   });
   return formData;
 };
@@ -106,7 +107,7 @@ export const loginUser = async (data: LoginData): Promise<ApiResponse<UserData>>
           throw new Error('Invalid email or password. Please check your credentials.');
         }
         throw new Error(errorData.error?.message || errorData.message || `Login failed: ${response.status}`);
-      } catch (parseError) {
+      } catch {
         throw new Error(`Login failed: ${response.status}`);
       }
     }
