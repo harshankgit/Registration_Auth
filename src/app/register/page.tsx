@@ -54,7 +54,12 @@ export default function RegisterPage() {
         alert('Registration successful! Please login with your credentials.');
         router.push('/login');
       } else {
-        setApiError(response.message || 'Registration failed');
+        // Handle specific error cases
+        if (response.error?.code === 'EMAIL_EXISTS') {
+          setApiError('This email is already registered. Please use a different email or try logging in.');
+        } else {
+          setApiError(response.error?.message || response.message || 'Registration failed');
+        }
       }
     } catch (error) {
       setApiError('Registration failed. Please try again.');

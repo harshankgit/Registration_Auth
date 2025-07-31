@@ -99,7 +99,16 @@ export const loginUser = async (data: LoginData): Promise<ApiResponse<UserData>>
     });
     
     if (!response.ok) {
-      throw new Error(`Login failed: ${response.status}`);
+      // Try to get error details from response
+      try {
+        const errorData = await response.json();
+        if (errorData.error?.code === 'INVALID_CREDENTIALS') {
+          throw new Error('Invalid email or password. Please check your credentials.');
+        }
+        throw new Error(errorData.error?.message || errorData.message || `Login failed: ${response.status}`);
+      } catch (parseError) {
+        throw new Error(`Login failed: ${response.status}`);
+      }
     }
     
     const result = await response.json();
