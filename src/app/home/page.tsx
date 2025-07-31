@@ -35,11 +35,8 @@ export default function HomePage() {
           <div className="px-4 py-5 sm:p-6">
             <div className="text-center">
               <h1 className="text-3xl font-bold text-gray-900 mb-4">
-                Welcome, {user.name}! 🎉
+                Welcome, {user.name}! 🎉 We're glad to see you. Let's get started!
               </h1>
-              <p className="text-lg text-gray-600 mb-8">
-                We're glad to see you. Let's get started!
-              </p>
               
               <div className="max-w-md mx-auto bg-blue-50 border border-blue-200 rounded-lg p-6">
                 <div className="flex items-center justify-center w-12 h-12 mx-auto mb-4 bg-blue-100 rounded-full">
